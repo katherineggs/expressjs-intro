@@ -13,3 +13,20 @@ $(document).ready(function() {
         }
     })
 })
+
+$(document).ready(function() {
+    $('.boton').click(function() {
+        let oldName = $(this).closest("#target").clone().children().remove().end().text();
+        console.log(oldName);
+        let name = oldName.replace(' ',"");
+        if (name && name.length > 0) {
+            $.post('/delete-user', {name:name}, function(data, status) {
+                console.log(`${data.message} and status is ${status}`)
+                alert(data.message)
+                setTimeout(function() {
+                    location.reload();
+                }, 2000);
+            })
+        }
+    })
+})
